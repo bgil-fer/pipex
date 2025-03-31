@@ -6,7 +6,7 @@
 /*   By: bgil-fer <bgil-fer@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:46:56 by bgil-fer          #+#    #+#             */
-/*   Updated: 2025/03/11 12:52:50 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/03/31 13:51:15 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static char	*reading(char *whole_line, int fd)
 	return (whole_line);
 }
 
-static char	*next_line(char *whole_line) /// la funcin ahora valora si en linea no hay un salto de linea
+static char	*next_line(char *whole_line)
 {
 	unsigned int	len;
 	char			*next_line;
@@ -96,8 +96,8 @@ static char	*ended_line(char *whole_line)
 	newline_pos = ft_strchr(whole_line, '\n');
 	if (newline_pos != NULL)
 	{
-		first_line_len = newline_pos - whole_line - 1; //-1 para quiar el \n
-		ended_line = ft_substr(whole_line, 0, first_line_len + 1); 
+		first_line_len = newline_pos - whole_line - 1;
+		ended_line = ft_substr(whole_line, 0, first_line_len + 1);
 	}
 	else
 	{
@@ -130,6 +130,7 @@ char	*get_next_line(int fd)
 	}
 	return (line);
 }
+
 /*
 #include <stdio.h>
 #include <fcntl.h>
@@ -153,4 +154,3 @@ int	main(void)
 	close(fd);
 	return (0);
 }*/
-

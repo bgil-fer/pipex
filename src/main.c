@@ -6,7 +6,7 @@
 /*   By: bgil-fer <bgil-fer@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 11:10:25 by bgil-fer          #+#    #+#             */
-/*   Updated: 2025/03/31 13:46:06 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/03/31 13:52:33 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*find_path(char **env, char *cmd)
 		path = ft_strjoin(segmented_path, cmd);
 		free(segmented_path);
 		if (access(path, F_OK) == 0)
-			return(path);
+			return (path);
 		free(path);
 		i++;
 	}
@@ -69,7 +69,7 @@ void	child_process(char **av, int *p_fd, char **env)
 	int	infd;
 
 	infd = open(av[1], O_RDONLY);
-	if  (infd == -1)
+	if (infd == -1)
 		ft_exit("Error opening infile\n");
 	dup2(infd, STDIN_FILENO); // sustituyo el stdin por mi fd
 	dup2(p_fd[1], STDOUT_FILENO); // sustituyo la salida de este proceso por p_fd[1]
@@ -82,7 +82,7 @@ void	parent_process(char **av, int *p_fd, char **env)
 	int	outfd;
 
 	outfd = open(av[4], O_WRONLY);
-	if  (outfd == -1)
+	if (outfd == -1)
 		ft_exit("Error opening outfile\n");
 	dup2(outfd, STDOUT_FILENO); // sustituyo el stdout por el segundo fd
 	dup2(p_fd[0], STDIN_FILENO); // sustituyo la entrada del proceso del termianl (stdin) a p_fd[0]
@@ -108,4 +108,3 @@ int	main(int argc, char **argv, char **env)
 	parent_process(argv, p_fd, env);
 	return (0);
 }
- 

@@ -6,7 +6,7 @@
 /*   By: bgil-fer <bgil-fer@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:20:35 by bgil-fer          #+#    #+#             */
-/*   Updated: 2025/03/10 11:15:15 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/03/31 13:51:28 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	ft_printf(char const *str, ...)
 	va_end(args);
 	return (k);
 }
-
 
 static int	convert(va_list args, char c)
 {
