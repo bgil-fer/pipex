@@ -6,7 +6,7 @@
 /*   By: bgil-fer <bgil-fer@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 11:10:38 by bgil-fer          #+#    #+#             */
-/*   Updated: 2025/04/02 14:04:23 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/04/02 14:29:08 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ void	parent_process(char **av, int *p_fd, char **env);
 void	child_process(char **av, int *p_fd, char **env);
 void	execute(char *cmd, char **env);
 char	*find_path(char **env, char *cmd);
+void	free_mem(char **ptr);
 
 #endif

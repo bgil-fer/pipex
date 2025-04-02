@@ -6,7 +6,7 @@
 /*   By: bgil-fer <bgil-fer@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 11:10:25 by bgil-fer          #+#    #+#             */
-/*   Updated: 2025/03/31 13:52:33 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/04/02 14:28:37 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ char	*find_path(char **env, char *cmd)
 		free(path);
 		i++;
 	}
-	i = -1;
-	while (paths[++i])
-		free(paths[i]);
-	free(paths[i]);
+	free_mem(paths);
 	return (0);
 }
 
@@ -62,6 +59,7 @@ void	execute(char *cmd, char **env)
 	}
 	if (execve(path, command, env) == -1)
 		ft_exit("Command not found\n");
+	free_mem(command);
 }
 
 void	child_process(char **av, int *p_fd, char **env)
