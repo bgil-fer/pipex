@@ -6,7 +6,7 @@
 #    By: bgil-fer <bgil-fer@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/06 10:07:29 by bgil-fer          #+#    #+#              #
-#    Updated: 2025/03/31 13:43:19 by bgil-fer         ###   ########.fr        #
+#    Updated: 2025/04/02 14:09:48 by bgil-fer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME		=	pipex
 
 # Compilador y flags
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -Iinclude #-g3
+CFLAGS		=	-Wall -Wextra -Werror -Iinclude -g3
 #-g3 -fsanitize=address
 
 # Directorios
@@ -25,7 +25,7 @@ LIBFTDIR	=	libft
 
 # Archivos fuente y objetos
 # $(shell find $(SRCDIR) -name "*.c")
-SRCS 		= 	src/main.c src/pipex.c src/utils.c
+SRCS 		= 	src/main.c src/utils.c
 
 OBJS		=	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 
@@ -47,13 +47,9 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 $(LIBFT):
 	make -C $(LIBFTDIR) -s
 
-# Compilar MiniLibX
-$(MLX):
-	make -C $(MLXDIR) -s
-
-# Enlazar el juego con las librerías
-$(NAME): $(OBJS) $(LIBFT) $(MLX)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME) 
+# Enlazar con las librerías
+$(NAME): $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 
 # Limpiar archivos intermedios
@@ -69,4 +65,4 @@ fclean: clean
 # Recompilar desde cero
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re
