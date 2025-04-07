@@ -6,7 +6,7 @@
 /*   By: bgil-fer <bgil-fer@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 11:10:25 by bgil-fer          #+#    #+#             */
-/*   Updated: 2025/04/02 14:28:37 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:39:27 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*find_path(char **env, char *cmd)
 		path = ft_strjoin(segmented_path, cmd);
 		free(segmented_path);
 		if (access(path, F_OK) == 0)
-			return (path);
+			return (free_mem(paths), path);
 		free(path);
 		i++;
 	}
@@ -55,11 +55,12 @@ void	execute(char *cmd, char **env)
 			i++;
 		}
 		free(command);
-		ft_exit("\033[33mPath not found\n"); //colores?
+		ft_exit("Path not found");
 	}
 	if (execve(path, command, env) == -1)
-		ft_exit("Command not found\n");
+		ft_exit("Command not found");
 	free_mem(command);
+	free(path);
 }
 
 void	child_process(char **av, int *p_fd, char **env)
@@ -68,7 +69,7 @@ void	child_process(char **av, int *p_fd, char **env)
 
 	infd = open(av[1], O_RDONLY);
 	if (infd == -1)
-		ft_exit("Error opening infile\n");
+		ft_exit("Error opening infile");
 	dup2(infd, STDIN_FILENO); // sustituyo el stdin por mi fd
 	dup2(p_fd[1], STDOUT_FILENO); // sustituyo la salida de este proceso por p_fd[1]
 	close(p_fd[0]);
@@ -79,11 +80,11 @@ void	parent_process(char **av, int *p_fd, char **env)
 {
 	int	outfd;
 
-	outfd = open(av[4], O_WRONLY);
+	outfd = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (outfd == -1)
-		ft_exit("Error opening outfile\n");
+		ft_exit("Error opening outfile");
 	dup2(outfd, STDOUT_FILENO); // sustituyo el stdout por el segundo fd
-	dup2(p_fd[0], STDIN_FILENO); // sustituyo la entrada del proceso del termianl (stdin) a p_fd[0]
+	dup2(p_fd[0], STDIN_FILENO); // sustituyo la entrada del proceso del terminal (stdin) a p_fd[0]
 	close(p_fd[1]);
 	execute(av[3], env);
 }
@@ -94,12 +95,15 @@ int	main(int argc, char **argv, char **env)
 	pid_t	pid;
 
 	if (argc != 5)
-		ft_exit("Invalid number of arguments\n"); //crear función
+	{
+		ft_printf("Invalid number of arguments\n");
+		exit(-1);
+	}
 	if (pipe(p_fd) == -1)
-		ft_exit("Pipe failed\n");
+		ft_exit("Pipe failed");
 	pid = fork();
 	if (pid == -1)
-		ft_exit("Pid failed\n");
+		ft_exit("Pid failed");
 	if (!pid)
 		child_process(argv, p_fd, env);
 	waitpid(pid, NULL, 0);

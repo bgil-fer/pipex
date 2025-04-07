@@ -6,7 +6,7 @@
 #    By: bgil-fer <bgil-fer@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/06 10:07:29 by bgil-fer          #+#    #+#              #
-#    Updated: 2025/04/02 14:09:48 by bgil-fer         ###   ########.fr        #
+#    Updated: 2025/04/07 11:55:53 by bgil-fer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME		=	pipex
 
 # Compilador y flags
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -Iinclude -g3
+CFLAGS		=	-Wall -Wextra -Werror -Iinclude #-g3 #-fsanitize=address
 #-g3 -fsanitize=address
 
 # Directorios
@@ -50,7 +50,6 @@ $(LIBFT):
 # Enlazar con las librerías
 $(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
-
 
 # Limpiar archivos intermedios
 clean:
